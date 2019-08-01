@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.java.book.mapper.BookMapper">
+    <resultMap type="com.example.java.book.model.Book" id="ColumnResult">
+        <id property="bookId" column="bookId"/>
+        <result property="bookNumber" column="bookNumber"/>
+        <result property="bookName" column="bookName"/>
+        <result property="bookDescribe" column="bookDescribe"/>
+        <result property="bookType" column="bookType"/>
+    </resultMap>
+
+    <select id="findAllBook" resultMap="ColumnResult">
+        SELECT BOOKID,BOOKID, BOOKNUMBER, BOOKNAME, BOOKDESCRIBE, BOOKTYPE FROM BOOK
+    </select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
