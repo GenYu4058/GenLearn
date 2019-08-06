@@ -1,9 +1,7 @@
-package com.example.java.book.util;
+package com.example.java.book.test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Test {
     public static void getData(List<?> data){

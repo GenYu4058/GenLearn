@@ -1,4 +1,4 @@
-package com.example.java.book.util;
+package com.example.java.book.test;
 
 import com.example.java.book.model.Student;
 
