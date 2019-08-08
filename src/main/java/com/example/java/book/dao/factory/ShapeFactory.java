@@ -1,5 +1,6 @@
 package com.example.java.book.dao.factory;
 
+import com.example.java.book.dao.Color;
 import com.example.java.book.dao.Shape;
 import com.example.java.book.dao.impl.Circle;
 import com.example.java.book.dao.impl.Rectangle;
@@ -13,7 +14,8 @@ import com.example.java.book.dao.impl.Square;
  * @time 10:41
  * shape工厂类
  */
-public class ShapeFactory {
+public class ShapeFactory extends AbstractFactory {
+    @Override
     public Shape getShape(String shapeType){
         if(shapeType == null){
             return null;
@@ -29,5 +31,9 @@ public class ShapeFactory {
 
     }
 
+    @Override
+    public Color getColor(String color){
+        return null;
+    }
 
 }
