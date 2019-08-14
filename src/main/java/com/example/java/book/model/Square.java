@@ -7,16 +7,15 @@ import com.example.java.book.model.abs.Shape;
  *
  * @author Gen
  * @date 2019/8/14
- * @time 16:28
- * Descriptioin No Descriptioin
+ * @time 16:23
  */
-public class Rectangle extends Shape {
-    public Rectangle(){
-        type = "Rectangle";
+public class Square extends Shape{
+    public Square(){
+        type = "Square";
     }
 
     @Override
     public void draw(){
-        System.out.println("Inside Rectangle::draw() method.");
+        System.out.println("Inside Square::draw() method.");
     }
 }
