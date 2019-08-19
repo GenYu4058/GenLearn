@@ -19,6 +19,7 @@ public class BridgePatternDemo {
         Shape redCircle = new CirCle(100,100,10,new RedCircle());
         Shape greenCircle = new CirCle(100,100,10,new GreenCircle());
 
+
         redCircle.draw();
         greenCircle.draw();
     }
