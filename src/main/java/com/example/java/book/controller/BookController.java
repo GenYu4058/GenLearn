@@ -23,6 +23,12 @@ public class BookController {
     @Autowired
     private BookDao bookDao;
 
+    //调用存储过程测试接口
+    @RequestMapping(value = "/addbook", method = RequestMethod.POST)
+    public void addBook(){
+        bookDao.addBook(new Book());
+    }
+
     @RequestMapping(value = "/getallbook", method = RequestMethod.POST)
     public List<Book> findAllBook(){
         return bookDao.findAllBook();

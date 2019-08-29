@@ -25,8 +25,8 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public int addBook(Book book){
-        return bookMapper.addBook(book);
+    public void addBook(Book book){
+         bookMapper.addBook(book);
     }
 
     @Override

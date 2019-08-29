@@ -23,7 +23,7 @@ public interface BookDao {
      * @param book 实体
      * @return 添加成功的状态（0/1）
      */
-     int addBook(Book book);
+     void addBook(Book book);
 
     /**
      *单个Book更新方法

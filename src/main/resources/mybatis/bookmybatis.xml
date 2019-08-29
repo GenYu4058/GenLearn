@@ -15,6 +15,13 @@
         SELECT BOOKID,BOOKID, BOOKNUMBER, BOOKNAME, BOOKDESCRIBE, BOOKTYPE FROM BOOK
     </select>
 
+    <select id="findBookById" parameterType="int" resultMap="ColumnResult">
+        SELECT * FROM BOOK WHERE BOOKNUMBER = #{BOOKNUMBER}
+    </select>
+
+    <insert id="addBook" statementType="CALLABLE">
+        sp_insert
+    </insert>
 
 </mapper>
 
