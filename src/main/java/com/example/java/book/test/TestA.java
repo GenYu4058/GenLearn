@@ -18,6 +18,10 @@ public class TestA {
     static{
         System.out.println("父类静态代码块");
     }
+    public static void test1()
+    {
+        System.out.println("父类静态代码");
+    }
 
     public void A(){
         System.out.println("父类普通方法");
