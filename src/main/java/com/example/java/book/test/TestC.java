@@ -11,6 +11,16 @@ import java.io.IOException;
  * Java执行顺序test
  */
 public class TestC {
+
+
+    public void C(){
+        TestA testA = new TestA();
+        testA.B();
+    }
+
+
+
+
     public static void main(String[] args) {
         System.out.println("start");
         new TestB();

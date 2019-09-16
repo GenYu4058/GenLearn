@@ -23,7 +23,11 @@ public class TestA {
         System.out.println("父类静态代码");
     }
 
-    public void A(){
+
+    public void B(){
+
+    }
+    protected void A(){
         System.out.println("父类普通方法");
     }
 }
