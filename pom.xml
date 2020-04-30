@@ -11,7 +11,7 @@
     <groupId>com.example.java</groupId>
     <artifactId>book</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>book</name>
     <description>Demo project for Spring Boot</description>
 
@@ -65,7 +65,13 @@
         </dependency>
 
     </dependencies>
-
+    <pluginRepositories>
+        <pluginRepository>
+            <id>alimaven spring plugin</id>
+            <name>alimaven spring plugin</name>
+            <url>https://maven.aliyun.com/repository/spring-plugin</url>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <plugins>
             <plugin>
