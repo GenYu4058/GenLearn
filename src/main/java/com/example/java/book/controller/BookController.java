@@ -23,7 +23,11 @@ public class BookController {
     @Autowired
     private BookDao bookDao;
 
-    //调用存储过程测试接口
+    /**
+     * Descriptioin : 调用存储过程测试接口
+     * @author GenYu
+     * @date 30/4/2020 下午 2:43
+     */
     @RequestMapping(value = "/addbook", method = RequestMethod.POST)
     public void addBook(){
         bookDao.addBook(new Book());
