@@ -10,8 +10,6 @@ import java.util.*;
  */
 public class TestList {
 
-
-
     /**
      * Descriptioin :
      * @param i 12
@@ -23,15 +21,11 @@ public class TestList {
     public String test(int i, int j){
         List<String> list = new ArrayList<>(10);
 
-
         Stack<String> stack = new Stack<>();
 
         TreeMap<Integer, String> treeMap = new TreeMap<>();
 
-
         HashMap<Integer, String> hashMap = new HashMap<>(10);
-
-
 
         return null;
     }
