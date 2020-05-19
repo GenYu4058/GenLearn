@@ -427,11 +427,23 @@ CPU原语支持，处理中不能被打断。
 
  CAS操作中包含三个操作数——需要读写的内存位置（V）、进行比较的预期原值（A）和拟写入的新值（B）。如果内存位置V的值与预期原值A相匹配，那么处理器会自动将该位置值更新为新值B。否则处理器不做任何操作。无论哪种情况，它都会在CAS指令之前返回该位置的值。（在CAS的一些特殊情况下将仅返回CAS是否成功，而不提取当前值。）CAS有效地说明了“我认为位置V应该包含值A；如果包含该值，则将B放到这个位置；否则，不要更改该位置，只告诉我这个位置现在的值即可。”这其实和乐观锁的冲突检查+数据更新的原理是一样的。
 
-cas(V, Expected, NewValue)
+cas( Expected, NewValue)
 
-if V == Expected
+m = 0
 
-V = New
+m ++
+
+expected = read m
+
+cas(0, 1){
+
+​	for(;;)  
+
+如果当前m值 == 0 则 m =1；break
+
+如果m != 0，则expected = 1, newValue = 2, 再次循环
+
+}
 
 otherwise try again or fail
 
@@ -441,7 +453,9 @@ otherwise try again or fail
 
 
 
-### AtomicInteger：线程安全
+### AtomicInteger：
+
+线程安全，原子操作，不需要加锁
 
 ```java
 AtomicInteger count = new AtomicInteger(0);
@@ -451,7 +465,11 @@ for(int i = 0; i < 10000; i++){
 }
 ```
 
+### LongAdder
 
+分段锁
+
+LongAdder 在线程数多的时候比AtomicInteger 更有优势。
 
 
 
