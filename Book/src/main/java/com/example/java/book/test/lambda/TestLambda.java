@@ -24,6 +24,7 @@ public class TestLambda {
             System.out.println("player = " + player);
         }
 
+
         //Lambda表达式遍历
         players.forEach((player) -> System.out.println("player = " + player));
 
