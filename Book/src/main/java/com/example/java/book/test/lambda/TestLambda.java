@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class TestLambda {
 
+
+
     public static void main(String[] args) {
         String[] atp = {"Rafael Nadal", "Novak Djokovic",
                 "Stanislas Wawrinka",
@@ -23,6 +25,7 @@ public class TestLambda {
         for (String player : players) {
             System.out.println("player = " + player);
         }
+
 
 
         //Lambda表达式遍历
