@@ -53,4 +53,16 @@ public class Book {
     public void setBookType(String bookType) {
         this.bookType = bookType;
     }
+
+    public Book(int bookId, String bookNumber, String bookName, String bookDescribe, String bookType) {
+        this.bookId = bookId;
+        this.bookNumber = bookNumber;
+        this.bookName = bookName;
+        this.bookDescribe = bookDescribe;
+        this.bookType = bookType;
+    }
+
+    public Book(){
+
+    }
 }
