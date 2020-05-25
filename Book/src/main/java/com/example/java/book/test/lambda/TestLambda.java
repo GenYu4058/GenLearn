@@ -42,17 +42,43 @@ public class TestLambda {
 
 
     public static void main(String[] args) {
+        TestInterface testInterface = new TestInterface() {
+            @Override
+            public int getCount() {
+                return 0;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+        };
+        testInterface.getOther();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("123");
+            }
+        }).start();
+
+        new Thread(() -> System.out.println("456"),"a1").start();
+
+
         List<Book> bookList = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             Book book = new Book(1,"2","3","4","5");
             bookList.add(book);
         }
-        bookList.forEach((book) -> {
 
+        for (Book book : bookList) {
             System.out.println(book.getBookName());
             System.out.println(book.getBookId());
+        }
 
-
+        bookList.forEach((book) -> {
+            System.out.println(book.getBookName());
+            System.out.println(book.getBookId());
         });
 
 

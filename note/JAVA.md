@@ -763,11 +763,84 @@ throw new IOException();
 
 程序会在throw语句后立即终止，它后面的语句执行不到（除了之后的finally），然后在包含它的所有try块中（可能在上层调用函数中）从里向外寻找含有与其匹配的catch子句的try块。
 
+# 匿名类
 
+Java 语音规范上是这么描述匿名类的
 
+匿名类的声明是由Java编译器自动派生自一个类实例创建表达式。
 
+匿名类永远不能是抽象的。
 
+匿名类总是隐式的final。
 
+匿名类总是一个内部类；并且不能是static的。
+
+例子
+
+> 接口中使用"default"关键字，实现接口的时候可以不实现此方法。
+
+```java
+public interface TestInterface {
+    int getCount();
+    String getName();
+    default String getOther(){
+        return "123";
+    }
+}
+```
+
+```java
+TestInterface testInterface = new TestInterface() {
+            @Override
+            public int getCount() {
+                return 0;
+            }
+
+            @Override
+            public String getName() {
+                return null;
+            }
+        };
+        testInterface.getOther();
+```
+
+# *Lambda* 表达式
+
+## 创建线程
+
+普通创建线程
+
+```java
+new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("123");
+            }
+        }).start();
+```
+
+Lambda表达式创建
+
+```java
+new Thread(() -> System.out.println("456"),"a1").start();
+```
+
+## 遍历集合
+
+普通遍历
+
+```java
+for (Book book : bookList) {
+            System.out.println(book.getBookName());
+            System.out.println(book.getBookId());
+        }
+```
+
+Lambda表达式遍历
+
+```java
+bookList.forEach(book -> System.out.println("book = " + book.getBookName()));
+```
 
 
 
