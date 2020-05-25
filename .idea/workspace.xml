@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="16240ac3-386a-49a6-96dd-9141e7d2148d" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/note/JAVA.md" beforeDir="false" afterPath="$PROJECT_DIR$/note/JAVA.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PATH_TO_GIT" value="E:\Git\Git\bin\git.exe" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="G:\Gen\GenLearn\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1XIXHIv87L1xBoZfGQmEFjjPp4m" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="sqlserver" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/JUC-master" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+  </component>
+  <component name="RunManager" selected="Application.T05_ReentrantLock5">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration name="PrototypePatternDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.java.book.test.PrototypePatternDemo" />
+      <module name="book" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.java.book.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="T05_ReentrantLock5" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.java.book.test.locks.T05_ReentrantLock5" />
+      <module name="book" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.java.book.test.locks.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BookApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="book" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.java.book.BookApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.PrototypePatternDemo" />
+      <item itemvalue="Application.T05_ReentrantLock5" />
+      <item itemvalue="Spring Boot.BookApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.T05_ReentrantLock5" />
+        <item itemvalue="Application.PrototypePatternDemo" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="16240ac3-386a-49a6-96dd-9141e7d2148d" name="Default" comment="" />
+      <created>1565700513569</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1565700513569</updated>
+      <workItem from="1565700516678" duration="2174000" />
+      <workItem from="1565780679955" duration="2331000" />
+      <workItem from="1580732586796" duration="201000" />
+      <workItem from="1580734498493" duration="474000" />
+      <workItem from="1580735049634" duration="2881000" />
+      <workItem from="1588600859814" duration="732000" />
+      <workItem from="1589982626787" duration="2062000" />
+      <workItem from="1590243504682" duration="20000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="173" key="FileChooserDialogImpl" timestamp="1590243522214">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="549" y="173" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1590243522214" />
+    <state width="1493" height="548" key="GridCell.Tab.0.bottom" timestamp="1589988129914">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="548" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1589988129914" />
+    <state width="1493" height="548" key="GridCell.Tab.0.center" timestamp="1589988129913">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="548" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1589988129913" />
+    <state width="1493" height="548" key="GridCell.Tab.0.left" timestamp="1589988129913">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="548" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1589988129913" />
+    <state width="1493" height="548" key="GridCell.Tab.0.right" timestamp="1589988129913">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="548" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1589988129913" />
+    <state x="272" y="0" key="SettingsEditor" timestamp="1588600972188">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="272" y="0" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1588600972188" />
+  </component>
+</project>
