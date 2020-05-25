@@ -1,3 +1,56 @@
+# JAVA代码执行顺序
+
+```java
+class HelloA {
+
+       public HelloA(){
+           System.out.println("Hello A!父类构造方法");
+       }
+
+      {        System.out.println("i'm A class.父类非静态代码块");
+
+
+      }
+      static{
+           System.out.println("static A 父类静态代码块");
+       }
+}
+
+     class HelloB extends HelloA {
+        public HelloB(){
+            System.out.println("Hello B! 构造方法");
+        }
+        {
+            System.out.println("i'm B class.非静态代码块");
+        }
+        static{
+            System.out.println("static B 静态代码块");
+        }
+        public static void main(String[] args) {
+            System.out.println("---start---");
+            new HelloB();
+            new HelloB();
+            System.out.println("---end---");
+        }
+}
+
+```
+
+**打印结果**
+
+static A 父类静态代码块
+static B 静态代码块
+---start---
+i'm A class.父类非静态代码块
+Hello A!父类构造方法
+i'm B class.非静态代码块
+Hello B! 构造方法
+i'm A class.父类非静态代码块
+Hello A!父类构造方法
+i'm B class.非静态代码块
+Hello B! 构造方法
+---end---
+
 # 多线程与高并 发
 
 ## 进程、线程、纤程
@@ -647,6 +700,94 @@ CountDownLatch能够使一个线程在等待另外一些线程完成各自工作
 可以设置公平锁。
 
 ### ***Exchanger** //TODO
+
+# 异常
+
+![image-20200525151549881](JAVA.assets/image-20200525151549881.png)
+
+## **Throwable**
+
+**Throwable**有两个重要的子类：**Exception**（异常）和**Error**（错误），二者都是Java异常处理的重要子类，各自都包含大量子类。异常和错误的区别是：异常能被程序本身处理，错误无法处理。
+
+## **Error（错误）**
+
+**Error**是程序无法处理的错误，表示运行应用程序中较严重的问题。大多数错误与代码编写者执行的操作无关，而表示代码运行时JVM（Java虚拟机）出现的问题。例如，Java虚拟机运行错误（Virtual MachineError），当JVM不再有继续执行操作所需的内存资源时，将出现OutOfMemoryError。
+
+这些异常发生时，Java虚拟机（JVM）一般会选择线程终止。这些错误表示故障发生于虚拟机自身、或者发生在虚拟机试图执行应用时，如Java虚拟机运行错误（Virtual MachineError）、类定义错误（NoClassDefFoundError）等。这些错误是不可查的，因为它们在应用程序的控制和处理能力之外，而且绝大多数是程序运行时不允许出现的状况。对于设计合理的应用程序来说，即使确实发生了错误，本质上也不应该试图去处理它所引起的异常状况。在Java中，错误通过Error的子类描述。
+
+## **Exception（异常）**
+
+**Exception**是程序本身可以处理的异常。其中可以分为两大类：
+
+- 运行时异常
+- 非运行时异常
+
+### **运行时异常**
+
+RunTimeException类及其子类异常，如NullPointerException（空指针异常）、IndexOutOfBoundsException（下标越界异常）等，这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生。
+
+​    运行时异常的特点是Java编辑器不会检查它，也就是说，当程序中可能出现这类异常，即使没有用try-catch语句捕获它，也没有用throws子句生命抛出它，也会编译通过。
+
+### **非运行时异常（编译异常）**
+
+RuntimeException以外的异常，类型上都属于Exception类及其子类。从程序语法角度讲必须进行处理的异常，如果不处理，程序就不能编译通过。如IOException、SQLException等以及用户自定义的Exception异常，一般情况下不自定义检查异常。
+
+## **异常处理机制**
+
+Java中异常处理机制有，抛出异常、捕获异常。
+
+如果一个方法可能会出现异常，但没有能力处理这种异常，可以在方法声明处用throws或throw来抛出异常。
+
+### **Throws**
+
+throws语句用在方法定义时声明该方法要抛出的异常类型，如果抛出的是Exception异常类型，则该方法被声明为抛出所有的异常。多个异常可使用逗号分割。
+
+格式如下：
+
+```java
+public void test() throws Exception,ClassNotFoundException{
+    //TODO
+}
+
+```
+
+方法名后的Exception1，Exception2…为声明要抛出的异常列表。当方法抛出异常列表的异常时，方法将不对这些类型及其子类类型的异常作处理，而抛向调用该方法的方法，由他去处理。
+
+### **Throw**
+
+throw总是出现在方法体中，用来抛出一个Throwable类或者其子类的实例对象异常。格式如下
+
+```java
+throw new IOException();
+```
+
+程序会在throw语句后立即终止，它后面的语句执行不到（除了之后的finally），然后在包含它的所有try块中（可能在上层调用函数中）从里向外寻找含有与其匹配的catch子句的try块。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

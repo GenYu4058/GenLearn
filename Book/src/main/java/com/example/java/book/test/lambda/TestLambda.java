@@ -47,6 +47,16 @@ public class TestLambda {
             Book book = new Book(1,"2","3","4","5");
             bookList.add(book);
         }
+        bookList.forEach((book) -> {
+
+            System.out.println(book.getBookName());
+            System.out.println(book.getBookId());
+
+
+        });
+
+
+
         bookList.forEach(book -> System.out.println("book = " + book.getBookName()));
     }
 
