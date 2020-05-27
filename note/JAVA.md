@@ -570,6 +570,18 @@ AQS源码
 
 ![image-20200526220821097](JAVA.assets/image-20200526220821097.png)
 
+## **VarHandle （JDK1.9以后）**
+
+1、普通属性也可以进行原子性操作
+
+2、比反射快（直接操作2进制码）
+
+![image-20200527211445938](JAVA.assets/image-20200527211445938.png)
+
+![image-20200527211421624](JAVA.assets/image-20200527211421624.png)
+
+# ThreadLocal
+
 
 
 # 锁
