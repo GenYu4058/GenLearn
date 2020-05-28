@@ -71,11 +71,6 @@ public class TestLambda {
             bookList.add(book);
         }
 
-        for (Book book : bookList) {
-            System.out.println(book.getBookName());
-            System.out.println(book.getBookId());
-        }
-
         bookList.forEach((book) -> {
             System.out.println(book.getBookName());
             System.out.println(book.getBookId());
