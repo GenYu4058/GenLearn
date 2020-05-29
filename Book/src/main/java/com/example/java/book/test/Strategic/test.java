@@ -14,9 +14,9 @@ import java.util.List;
  * Descriptioin No Descriptioin
  */
 public class test {
-    private List<Employee> list;
+    private static List<Employee> list;
     static {
-         list = Arrays.asList(
+        list = Arrays.asList(
                 new Employee("张三",23,3333.33),
                 new Employee("李四",24,4444.44),
                 new Employee("王五",25,5555.55),
@@ -25,6 +25,5 @@ public class test {
         );
     }
     public static void main(String[] args) {
-        () -> list
     }
 }
