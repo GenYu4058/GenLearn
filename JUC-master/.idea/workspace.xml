@@ -151,6 +151,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
+<<<<<<< HEAD
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -164,6 +165,9 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.T04_ReentrantLock4">
+=======
+  <component name="RunManager" selected="Application.ThreadLocal1">
+>>>>>>> ee2455859f280430b6288a5a2e4d1728fc2b21bf
     <configuration name="HelloB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mashibing.juc.c_021_02_AQS.HelloB" />
       <module name="JUC" />
@@ -190,12 +194,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <list>
       <item itemvalue="Application.HelloB" />
       <item itemvalue="Application.T04_ReentrantLock4" />
     </list>
+=======
+    <configuration name="ThreadLocal1" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.mashibing.juc.c_022_RefTypeAndThreadLocal.ThreadLocal1" />
+      <module name="JUC" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mashibing.juc.c_022_RefTypeAndThreadLocal.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+>>>>>>> ee2455859f280430b6288a5a2e4d1728fc2b21bf
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ThreadLocal1" />
         <item itemvalue="Application.T04_ReentrantLock4" />
         <item itemvalue="Application.HelloB" />
       </list>
@@ -215,7 +236,11 @@
       <workItem from="1590390386607" duration="107000" />
       <workItem from="1590390579663" duration="1663000" />
       <workItem from="1590500795022" duration="946000" />
+<<<<<<< HEAD
       <workItem from="1590646851112" duration="1294000" />
+=======
+      <workItem from="1590675353041" duration="2013000" />
+>>>>>>> ee2455859f280430b6288a5a2e4d1728fc2b21bf
     </task>
     <servers />
   </component>
