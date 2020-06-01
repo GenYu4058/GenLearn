@@ -992,27 +992,100 @@ Collections.synchronizedMap可以把HashMap变成带锁的版本。
 static Map<UUID, UUID> m = Collections.synchronizedMap(new HashMap<UUID, UUID>());
 ```
 
+## TreeMap
+
+
+
 ## HashTable
 
 所有方法都加了锁。
 
+
+
 ## ConcurrentHashMap
+
+CAS实现
 
 适用，多线程读的时候
 
 写的时候，效率不如HashTable,Collections.synchronizedMap(newHashMap<UUID, UUID>())
 
+## ConcurrentSkipListMap
+
+高并发并且排序
+
+![image-20200601214052104](JAVA.assets/image-20200601214052104.png)
+
+抽象出一些关键元素
+
 ## Vector 
 
 自带锁
+
+## CopyOnWriteList
+
+写时复制
+
+读的时候不加锁，写的时候加锁复制一份，在新的List里面添加一个元素，再把指针指向新的
+
+使用于读多写少时。
+
+本质上是ReadWriteLock概念
+
+## CopyOnWriteSet
 
 ## Queue
 
 多线程用Queue
 
-### ConcurrentLinkedQueue
+offer 添加数据   添加成功返回true  否则返回false
+
+add 添加数据   添加失败则报异常
+
+peek 取数据     并不会remove掉
+
+poll 取数据      并且remove掉
+
+## ConcurrentLinkedQueue
 
 CAS实现
+
+## BlockingQueue
+
+天生     生产者-消费者模型
+
+put()   添加，如果满了，就会阻塞  （阻塞Lock.park()）
+
+take()  取，如果空了，就会阻塞
+
+- LinkedBlockingQueue 无界的
+
+可以装到内存满了为止，添加到内存溢出
+
+- ArrayBlockingQueue   有界的
+- DelayQueue       时间上的排序
+
+按照里面等待的时间进行排序
+
+使用场景，按时间进行任务调度
+
+- PriorityQueue
+
+内部实现了排序，小的在前，二叉树
+
+- SynchronousQueue 两个线程之间传递内容
+
+容量为0，只能同时take()和put()，否则就会阻塞
+
+- TransferQueue   可以给线程传递，可以穿好多个
+
+transfer()：一个线程来了放数据，阻塞等着另一个线程消费，消费之后，才会解除阻塞
+
+## 面试
+
+Queue和List的区别
+
+Queue添加一些对线程友好的API，如offer、peek、poll
 
 # 异常
 
