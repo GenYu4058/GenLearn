@@ -241,6 +241,14 @@ class ThreadPool implements Runnable {
 
 ```
 
+#### 马士兵
+
+Callable  -> 带有返回值的Runnable
+
+Future - > 存储执行的将来才会产生结果
+
+FutureTask -> Future + Runnable
+
 #### 线程状态
 
 + 新建（new）：创建后尚未启动的线程处于这种状态。
@@ -1086,6 +1094,8 @@ transfer()：一个线程来了放数据，阻塞等着另一个线程消费，�
 Queue和List的区别
 
 Queue添加一些对线程友好的API，如offer、peek、poll
+
+
 
 # 异常
 
