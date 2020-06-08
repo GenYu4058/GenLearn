@@ -83,6 +83,12 @@ Linux中每一个进程都有自己的调度方案。
 
 **概念：** 一个程序里不同的执行路径。
 
+
+
+#### 守护线程和非守护线程//TODO
+
+
+
 #### **线程常用方法：** 
 
 1. start()：线程启动
@@ -248,6 +254,8 @@ Callable  -> 带有返回值的Runnable
 Future - > 存储执行的将来才会产生结果
 
 FutureTask -> Future + Runnable
+
+CompletableFuture  管理多个Future的结果。
 
 #### 线程状态
 
@@ -1095,7 +1103,69 @@ Queue和List的区别
 
 Queue添加一些对线程友好的API，如offer、peek、poll
 
+# 线程池
 
+CompletableFuture
+
+线程的管理类
+
+例子：去三个不同的网站找同一商品的价格，最后汇总回来。
+
+```java
+CompletableFuture<Double> futureTM = CompletableFuture.supplyAsync(()->priceOfTM());
+        CompletableFuture<Double> futureTB = CompletableFuture.supplyAsync(()->priceOfTB());
+        CompletableFuture<Double> futureJD = CompletableFuture.supplyAsync(()->priceOfJD());
+
+        CompletableFuture.allOf(futureTM, futureTB, futureJD).join();
+```
+
+## ThreadPoolExecutor
+
+七个参数
+
+- corePoolSize：核心线程数
+- maximumPoolSize：最大线程数
+- keepAliveTime：空闲的线程保留的时间。
+- TimeUnit：空闲线程的保留时间单位。
+
+```java
+TimeUnit.DAYS;               //天
+TimeUnit.HOURS;             //小时
+TimeUnit.MINUTES;           //分钟
+TimeUnit.SECONDS;           //秒
+TimeUnit.MILLISECONDS;      //毫秒
+TimeUnit.MICROSECONDS;      //微妙
+TimeUnit.NANOSECONDS;       //纳秒
+```
+
+- BlockingQueue<Runnable>：阻塞队列
+
+存储等待执行的任务。参数有ArrayBlockingQueue、LinkedBlockingQueue、SynchronousQueue可选。
+
+- ThreadFactory：线程工厂，用来创建线程
+- RejectedExecutionHandler：队列已满，而且任务量大于最大线程的异常处理策略。有以下取值
+
+```java
+ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。 
+ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。 
+ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
+```
+
+## 四种拒绝策略
+
+- Abort：抛异常
+- Discard：扔掉，不抛异常
+- DiscardOldest：扔掉排队时间最久的
+- CallerRuns：调用者处理任务
+
+## ForkJoinPool
+
+分解汇总的任务
+
+用很少的线程可以执行很多的任务（子任务）TPE做不到先执行子任务
+
+CPU密集型
 
 # 异常
 
