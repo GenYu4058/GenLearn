@@ -1076,7 +1076,7 @@ take()  取，如果空了，就会阻塞
 
 - LinkedBlockingQueue 无界的
 
-可以装到内存满了为止，添加到内存溢出
+可以装到内存满了为止，添加到内存溢出（最大为Integer.maxValue，不是无界）
 
 - ArrayBlockingQueue   有界的
 - DelayQueue       时间上的排序
@@ -1105,7 +1105,111 @@ Queue添加一些对线程友好的API，如offer、peek、poll
 
 # 线程池
 
-CompletableFuture
+## Executor//todo
+
+把线程的定义和执行分开
+
+线程的执行接口
+
+## ExecutorService//todo
+
+## Executors - 线程池的工厂
+
+1. SingleThreadExecutor   一个线程的工厂
+
+```java
+ExecutorService service = Executors.newSingleThreadExecutor();
+```
+
+```java
+public static ExecutorService newSingleThreadExecutor() {
+    return new Executors.FinalizableDelegatedExecutorService(new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue()));
+}
+```
+
+核心线程为1，最大线程为1，可以保证线程顺序执行。
+
+
+
+2. CachedPool 
+
+```
+ExecutorService service = Executors.newCachedThreadPool();
+```
+
+```java
+public static ExecutorService newCachedThreadPool() {
+        return new ThreadPoolExecutor(0, 2147483647, 60L, TimeUnit.SECONDS, new SynchronousQueue());
+    }
+```
+
+核心线程为0，最大线程为Integer.MAX_VALUE，确保每一个任务进来，如果线程都在忙，就会产生新的线程。
+
+3. FixedThreadPool
+
+```java
+ExecutorService service = Executors.newFixedThreadPool(cpuCoreNum);
+```
+
+```java
+public static ExecutorService newFixedThreadPool(int nThreads) {
+    return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue());
+}
+```
+
+指定的核心线程数和最大线程数，
+
+4. ScheduledPool 定时任务线程池
+
+```
+ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
+```
+
+```java
+public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
+    return new ScheduledThreadPoolExecutor(corePoolSize);
+}
+```
+
+```java
+public ScheduledThreadPoolExecutor(int corePoolSize) {
+    super(corePoolSize, 2147483647, 10L, TimeUnit.MILLISECONDS, new ScheduledThreadPoolExecutor.DelayedWorkQueue());
+}
+```
+
+用来执行定时任务的线程池
+
+DelayedWorkQueue()，隔时间运行
+
+
+
+## 线程池的大小
+
+![image-20200609223039953](JAVA.assets/image-20200609223039953.png)
+
+## 马士兵
+
+1、为什么要有单线程的线程池？
+
+答：任务队列。完整的生命周期管理。
+
+2、Cached   VS    Fixed
+
+答：忽高忽低用Cached，平稳用Fixed，阿里建议都不用，自己估算
+
+3、Scheduled定时任务线程池
+
+答：quartz，cron
+
+4、并发（concurrent）和并行（parallel）
+
+并发是指任务提交，并行是任务执行。
+
+并发是同时多个任务提交。
+
+并行是多核CPU同时运行。
+
+## CompletableFuture
 
 线程的管理类
 
