@@ -1113,73 +1113,7 @@ Queue添加一些对线程友好的API，如offer、peek、poll
 
 ## ExecutorService//todo
 
-## Executors - 线程池的工厂
 
-1. SingleThreadExecutor   一个线程的工厂
-
-```java
-ExecutorService service = Executors.newSingleThreadExecutor();
-```
-
-```java
-public static ExecutorService newSingleThreadExecutor() {
-    return new Executors.FinalizableDelegatedExecutorService(new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue()));
-}
-```
-
-核心线程为1，最大线程为1，可以保证线程顺序执行。
-
-
-
-2. CachedPool 
-
-```
-ExecutorService service = Executors.newCachedThreadPool();
-```
-
-```java
-public static ExecutorService newCachedThreadPool() {
-        return new ThreadPoolExecutor(0, 2147483647, 60L, TimeUnit.SECONDS, new SynchronousQueue());
-    }
-```
-
-核心线程为0，最大线程为Integer.MAX_VALUE，确保每一个任务进来，如果线程都在忙，就会产生新的线程。
-
-3. FixedThreadPool
-
-```java
-ExecutorService service = Executors.newFixedThreadPool(cpuCoreNum);
-```
-
-```java
-public static ExecutorService newFixedThreadPool(int nThreads) {
-    return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue());
-}
-```
-
-指定的核心线程数和最大线程数，
-
-4. ScheduledPool 定时任务线程池
-
-```
-ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
-```
-
-```java
-public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
-    return new ScheduledThreadPoolExecutor(corePoolSize);
-}
-```
-
-```java
-public ScheduledThreadPoolExecutor(int corePoolSize) {
-    super(corePoolSize, 2147483647, 10L, TimeUnit.MILLISECONDS, new ScheduledThreadPoolExecutor.DelayedWorkQueue());
-}
-```
-
-用来执行定时任务的线程池
-
-DelayedWorkQueue()，隔时间运行
 
 
 
@@ -1209,6 +1143,8 @@ DelayedWorkQueue()，隔时间运行
 
 并行是多核CPU同时运行。
 
+www.github.com/bjmashibing
+
 ## CompletableFuture
 
 线程的管理类
@@ -1224,6 +1160,8 @@ CompletableFuture<Double> futureTM = CompletableFuture.supplyAsync(()->priceOfTM
 ```
 
 ## ThreadPoolExecutor
+
+启动核心线程 -> 向任务队列里添加任务 -> 队列里满了并且核心线程已经满了，此时启动非核心线程。
 
 七个参数
 
@@ -1256,6 +1194,94 @@ ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后
 ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
 ```
 
+### Executors - 线程池的工厂
+
+### SingleThreadExecutor   一个线程的工厂
+
+```java
+ExecutorService service = Executors.newSingleThreadExecutor();
+```
+
+```java
+public static ExecutorService newSingleThreadExecutor() {
+    return new Executors.FinalizableDelegatedExecutorService(new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue()));
+}
+```
+
+核心线程为1，最大线程为1，可以保证线程顺序执行。
+
+
+
+### CachedPool 
+
+```
+ExecutorService service = Executors.newCachedThreadPool();
+```
+
+```java
+public static ExecutorService newCachedThreadPool() {
+        return new ThreadPoolExecutor(0, 2147483647, 60L, TimeUnit.SECONDS, new SynchronousQueue());
+    }
+```
+
+核心线程为0，最大线程为Integer.MAX_VALUE，确保每一个任务进来，如果线程都在忙，就会产生新的线程。
+
+### FixedThreadPool
+
+```java
+ExecutorService service = Executors.newFixedThreadPool(cpuCoreNum);
+```
+
+```java
+public static ExecutorService newFixedThreadPool(int nThreads) {
+    return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue());
+}
+```
+
+指定的核心线程数和最大线程数，
+
+### ScheduledPool 定时任务线程池
+
+```
+ScheduledExecutorService service = Executors.newScheduledThreadPool(4);
+```
+
+```java
+public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
+    return new ScheduledThreadPoolExecutor(corePoolSize);
+}
+```
+
+```java
+public ScheduledThreadPoolExecutor(int corePoolSize) {
+    super(corePoolSize, 2147483647, 10L, TimeUnit.MILLISECONDS, new ScheduledThreadPoolExecutor.DelayedWorkQueue());
+}
+```
+
+用来执行定时任务的线程池
+
+### DelayedWorkQueue()
+
+隔时间运行
+
+
+
+## ForkJoinPool
+
+分解-汇总任务
+
+用很少的线程可以执行很多的任务（子任务）TPE做不到先执行子任务
+
+CPU密集型
+
+### workStealingPool
+
+每一个线程都有自己单独的队列，当一个线程执行完了自己的队列，会向其他的线程取任务
+
+![image-20200611225118034](JAVA.assets/image-20200611225118034.png)
+
+
+
 ## 四种拒绝策略
 
 - Abort：抛异常
@@ -1263,13 +1289,17 @@ ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
 - DiscardOldest：扔掉排队时间最久的
 - CallerRuns：调用者处理任务
 
-## ForkJoinPool
+## 线程池5种状态
 
-分解汇总的任务
+1. RUNNING
+2. SHUTDOWN
+3. STOP
+4. TIDYING
+5. TERMINATED
 
-用很少的线程可以执行很多的任务（子任务）TPE做不到先执行子任务
+源码重要方法
 
-CPU密集型
+addWork()：添加线程方法
 
 # 异常
 
