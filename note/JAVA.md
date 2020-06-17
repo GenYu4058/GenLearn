@@ -1105,6 +1105,71 @@ Queue添加一些对线程友好的API，如offer、peek、poll
 
 # 线程池
 
+## **为什么要使用线程池？**
+
+如果我们在方法中直接new一个线程来处理，当这个方法被调用频繁时就会创建很多线程，不仅会消耗系统资源，还会降低系统的稳定性，一不小心把系统搞崩了，就可以直接去财务那结帐了。
+
+如果我们合理的使用线程池，则可以避免把系统搞崩的窘境。总得来说，使用线程池可以带来以下几个好处：
+
+1. 降低资源消耗。通过重复利用已创建的线程，降低线程创建和销毁造成的消耗。
+
+   
+
+2. 提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。
+
+   
+
+3. 增加线程的可管理型。线程是稀缺资源，使用线程池可以进行统一分配，调优和监控。
+
+## 七个参数
+
+- corePoolSize：核心线程数
+- maximumPoolSize：最大线程数
+- keepAliveTime：空闲的线程保留的时间。
+- TimeUnit：空闲线程的保留时间单位。
+
+```java
+TimeUnit.DAYS;               //天
+TimeUnit.HOURS;             //小时
+TimeUnit.MINUTES;           //分钟
+TimeUnit.SECONDS;           //秒
+TimeUnit.MILLISECONDS;      //毫秒
+TimeUnit.MICROSECONDS;      //微妙
+TimeUnit.NANOSECONDS;       //纳秒
+```
+
+- BlockingQueue<Runnable>：阻塞队列
+
+存储等待执行的任务。参数有ArrayBlockingQueue、LinkedBlockingQueue、SynchronousQueue可选。
+
+- ThreadFactory：线程工厂，用来创建线程
+- RejectedExecutionHandler：队列已满，而且任务量大于最大线程的异常处理策略。有以下取值
+
+```java
+ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。 
+ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。 
+ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
+```
+
+## **线程池的运作流程**
+
+![image-20200617130717776](JAVA.assets/image-20200617130717776.png)
+
+## 线程池的状态
+
+线程池目前有5个状态：
+
+- RUNNING：接受新任务并处理排队的任务。
+- SHUTDOWN：不接受新任务，但处理排队的任务。
+- STOP：不接受新任务，不处理排队的任务，并中断正在进行的任务。
+- TIDYING：所有任务都已终止，workerCount 为零，线程转换到 TIDYING 状态将运行 terminated() 钩子方法。
+- TERMINATED：terminated() 已完成。
+
+![image-20200617130304749](JAVA.assets/image-20200617130304749.png)
+
+
+
 ## Executor//todo
 
 把线程的定义和执行分开
@@ -1225,37 +1290,6 @@ CompletableFuture<Double> futureTM = CompletableFuture.supplyAsync(()->priceOfTM
 
 ## ThreadPoolExecutor
 
-七个参数
-
-- corePoolSize：核心线程数
-- maximumPoolSize：最大线程数
-- keepAliveTime：空闲的线程保留的时间。
-- TimeUnit：空闲线程的保留时间单位。
-
-```java
-TimeUnit.DAYS;               //天
-TimeUnit.HOURS;             //小时
-TimeUnit.MINUTES;           //分钟
-TimeUnit.SECONDS;           //秒
-TimeUnit.MILLISECONDS;      //毫秒
-TimeUnit.MICROSECONDS;      //微妙
-TimeUnit.NANOSECONDS;       //纳秒
-```
-
-- BlockingQueue<Runnable>：阻塞队列
-
-存储等待执行的任务。参数有ArrayBlockingQueue、LinkedBlockingQueue、SynchronousQueue可选。
-
-- ThreadFactory：线程工厂，用来创建线程
-- RejectedExecutionHandler：队列已满，而且任务量大于最大线程的异常处理策略。有以下取值
-
-```java
-ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。 
-ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。 
-ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
-ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
-```
-
 ## 四种拒绝策略
 
 - Abort：抛异常
@@ -1270,6 +1304,8 @@ ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
 用很少的线程可以执行很多的任务（子任务）TPE做不到先执行子任务
 
 CPU密集型
+
+
 
 # 异常
 
