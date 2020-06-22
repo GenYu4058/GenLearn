@@ -226,3 +226,5 @@ i'm B class.非静态代码块
 Hello B! 构造方法
 ---end---
 
+
+
