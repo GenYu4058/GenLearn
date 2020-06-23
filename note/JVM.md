@@ -39,6 +39,7 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
 
 
 
+# 内存加载过程
 
 
 # 类加载-初始化
@@ -57,14 +58,6 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
 ## 类加载器
 
 ![image-20200622222243127](JVM.assets/image-20200622222243127.png)
-
-
-
-
-
-
-
-
 
 # 运行时内存结构
 
