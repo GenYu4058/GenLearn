@@ -57,7 +57,11 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
 
 ## 类加载器
 
+类加载器采用双亲委派机制
+
 ![image-20200622222243127](JVM.assets/image-20200622222243127.png)
+
+![image-20200623221340531](JVM.assets/image-20200623221340531.png)
 
 # 运行时内存结构
 
