@@ -41,13 +41,30 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
 
 
 
+# 类加载-初始化
+
+## 加载过程
+
+1. Loading : 加载
+2. Linking
+   1. Verification ：验证class文件格式
+   2. Preparation ：赋默认值
+   3. Resolution ：常量池里面的符号引用转化成内存地址
+3. Initializing ：静态变量赋初始值
+
+![image-20200622222204531](JVM.assets/image-20200622222204531.png)
+
+## 类加载器
+
+![image-20200622222243127](JVM.assets/image-20200622222243127.png)
 
 
 
 
 
 
-# 内存加载过程
+
+
 
 # 运行时内存结构
 
