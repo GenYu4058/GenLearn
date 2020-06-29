@@ -61,15 +61,21 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
    5. 混合执行 编译执行 解释执行
 
 2. Linking
-   1. Verification ：验证class文件格式
-   2. Preparation ：赋默认值
-   3. Resolution ：常量池里面的符号引用转化成内存地址
+   1. Verification ：验证文件是否符合JVM规定
+   
+   2. Preparation ：静态成员变量赋默认值
 
-3. Initializing ：静态变量赋初始值
+   3. Resolution ：将类、方法、属性等符号引用解析为直接引用
+   
+      ​						常量池中的各种符号引用解析为指针、偏移量等内						存地址的直接引用
+   
+3. Initializing ：调用类初始化代码 <clinit>，给静态成员变量赋初始值
 
 ![image-20200622222204531](JVM.assets/image-20200622222204531.png)
 
-## 类加载器
+## loading
+
+### 类加载器
 
 类加载器采用双亲委派机制
 
@@ -77,7 +83,7 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
 
 ![image-20200623221340531](JVM.assets/image-20200623221340531.png)
 
-## lazyloading
+### lazyloading
 
 - 严格讲应该叫lazyInitializing
 - JVM规范并没有规定何时加载
@@ -88,7 +94,7 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
   - 虚拟机启动时，被执行的主类必须初始化
   - 动态语言支持java.lang.invoke.MethodHandle解析的结果为REF_getstatic REF_putstatic REF_invokestatic的方法语柄时，该类必须初始化
 
-## 自定义加载器
+### 自定义加载器
 
 1. extends ClassLoader
 
@@ -113,11 +119,15 @@ JDK是整个JAVA的核心，包括了Java运行环境JRE（Java Runtime Envirnme
 
          osgi tomcat 都有自己的模块指定classloader（可以加载同一类库的不同版本）
 
-## 编译
+### 编译
 
 java是一种解释和编译 混合模式的语言
 
 ![image-20200628230124253](JVM.assets/image-20200628230124253.png)
+
+## Linking
+
+
 
 
 
