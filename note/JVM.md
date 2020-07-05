@@ -133,6 +133,46 @@ java是一种解释和编译 混合模式的语言
 
 java Memory Model
 
+
+
+![image-20200705210040750](JVM.assets/image-20200705210040750.png)
+
+## 对象的内存布局
+
+![image-20200705210751454](JVM.assets/image-20200705210751454.png)
+
+1、
+
+![image-20200705211832771](JVM.assets/image-20200705211832771.png)
+
+2、
+
+### 普通对象
+
+1. 对象头：markword 8
+2. ClassPointer指针：-XX:+UseCompressedClassPointers 为4字节 不开启为8字节
+3. 实例数据
+   1. 引用类型：-XX:+UseCompressedOops 为4字节 不开启为8字节 Oops Ordinary Object Pointers
+4. Padding对齐，8的倍数
+
+### 数组对象
+
+1. 对象头：markword 8
+2. ClassPointer指针同上
+3. 数组长度：4字节
+4. 数组数据
+5. 对齐 8的倍数
+
+3、![image-20200705215829867](JVM.assets/image-20200705215829867.png)
+
+4、
+
+两种方式
+
+句柄池
+
+直接指针（Hospot）
+
 # 硬件层的并发优化基础知识
 
 ![image-20200704210932850](JVM.assets/image-20200704210932850.png)
@@ -145,7 +185,7 @@ java Memory Model
 
 锁总线（老的CPU使用这种方式）
 
-缓存一致性协议 + 锁总线（新CPU使用）
+缓存一致性协议 + 锁总线（新CPU使用）当缓存装不下的时候还是需要总线锁
 
 intel使用MESI 协议
 
@@ -165,17 +205,44 @@ intel使用MESI 协议
 
 ## CPU的乱序执行
 
+as if serial : 不管如何重排序，单线程执行结果不会改变
+
 CPU为了提高指令执行效率，会在一条指令执行过程中（比如说去内存读数据（慢100倍）），同时执行另一条指令，前提是，两条指令没有依赖关系
+
+![image-20200705210442853](JVM.assets/image-20200705210442853.png)
 
 ## Volatile 保证不乱序
 
-使用CPU内存屏障实现
+**使用CPU内存屏障实现（intel x86 CPU 级别）**
 
-sfence:在sfence指令前的写操作，当必须在sfence指令后的写操作前完成。
+sfence: (save) 在sfence指令前的写操作，当必须在sfence指令后的写操作前完成。
 
-ifence:在Ifence指令前的读操作，必须在Ifence指令后的读操作前完成。
+lfence: (Load) 在Ifence指令前的读操作，必须在Ifence指令后的读操作前完成。
 
 mfence:在mfence指令前的读写操作，必须在mfence指令后的读写操作前完成。
+
+原子指令，如x86上的”lock …” 指令是一个Full Barrier，执行时会锁住内存子系统来确保执行顺序，甚至跨多个CPU。Software Locks通常使用了内存屏障或原子指令来实现变量可见性和保持程序顺序
+
+**JVM级别如何规范（JVM级别）**
+
+- LoadLoad屏障：
+    	对于这样的语句Load1; LoadLoad; Load2， 
+      	在Load2及后续读取操作要读取的数据被访问前，保证Load1要读取的数据被读取
+- StoreStore屏障：
+   	对于这样的语句Store1; StoreStore; Store2，
+    	
+      	在Store2及后续写入操作执行前，保证Store1的写入操作对其它处理器可见。
+- LoadStore屏障：
+   	对于这样的语句Load1; LoadStore; Store2，
+    	
+      	在Store2及后续写入操作被刷出前，保证Load1要读取的数据被读取完毕。
+- StoreLoad屏障：
+  	对于这样的语句Store1; StoreLoad; Load2，
+    	 在Load2及后续所有读取操作执行前，保证Store1的写入对所有处理器可见。
+
+
+
+
 
 # 缓存一致性协议
 
