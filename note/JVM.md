@@ -250,9 +250,78 @@ mfence:在mfence指令前的读写操作，必须在mfence指令后的读写操�
 
 
 
-# 运行时内存结构
+# java运行时数据区
 
+![image-20200706220136724](JVM.assets/image-20200706220136724.png)
 
+![image-20200706220355584](JVM.assets/image-20200706220355584.png)
+
+## 1、Program Counter 程序计数器（PC）
+
+存放指令位置
+
+虚拟机的运行，类似于这样的循环：
+
+while( not end ) {
+
+​	取PC中的位置，找到对应位置的指令；
+
+​	执行该指令；
+
+​	PC ++;
+
+}
+
+## 2、JVM Stack  JVM栈
+
+自己写的方法，放到这个栈中
+
+1. Frame - 每个线程对应一个栈，每个方法对应一个栈帧，栈帧存储以下四项
+
+   1. Local Variable Table      局部变量
+
+   2. Operand Stack               操作数栈
+
+      对于long的处理（store and load），多数虚拟机的实现都是原子的 jls 17.7，没必要加volatile
+
+   3. Dynamic Linking 
+
+      https://blog.csdn.net/qq_41813060/article/details/88379473 jvms 2.6.3
+
+   4. return address 
+
+      a() -> b()，方法a调用了方法b, b方法的返回值放在什么地方
+
+## 3、native method stacks 本地方法栈
+
+java虚拟机内部的 c 和 c++ 写的方法的时候使用这个栈
+
+一般没办法调优
+
+## 4、Heap
+
+## 5、Method Area 方法区
+
+装的是各种各样的class，常量池
+
+1. Perm Space (<1.8) 字符串常量位于PermSpace FGC不会清理 大小启动的时候指定，不能变
+2. Meta Space (>=1.8) 字符串常量位于堆 会触发FGC清理 不设定的话，最大就是物理内存
+
+## 6、Direct Memory 直接内存
+
+为了提高效率，1.4版本后，java可以调用操作系统的内存
+
+JVM可以直接访问的内核空间的内存 (OS 管理的内存)
+
+NIO ， 提高效率，实现zero copy
+
+## 7、Runtime Constant Pool 运行时常量池
+
+Class文件中除了有类的版本、字段、方法、接口等描述信息外，还有一项信息是常量池，用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。
+
+## 线程共享区域
+
+![image-20200706222709915](JVM.assets/image-20200706222709915.png)
 
 # JVM常用指令
 
