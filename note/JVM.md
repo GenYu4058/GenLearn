@@ -292,6 +292,77 @@ while( not end ) {
 
       a() -> b()，方法a调用了方法b, b方法的返回值放在什么地方
 
+**入栈出栈详解**
+
+new一个对象的时候
+
+先调用new指令，在堆内存里面新建对象，分配内存，附默认值，并把内存地址入栈
+
+再调用dup指令，在栈顶复制一个地址（此时是对象半初始化状态）
+
+再调用invokespecial指令，把栈顶对象出栈，调用构造方法，对象附初始值
+
+![image-20200708215925997](JVM.assets/image-20200708215925997.png)
+
+带返回值
+
+![image-20200708221237784](JVM.assets/image-20200708221237784.png)
+
+递归（可以看出死递归是不断增加栈，有栈溢出风险）
+
+![image-20200708221404319](JVM.assets/image-20200708221404319.png)
+
+**常用指令**
+
+store   出栈并赋值
+
+load    入栈
+
+pop     取栈顶元素并出栈
+
+mul
+
+sub
+
+invoke
+
+1. InvokeStatic
+2. InvokeVirtual : 自带多肽
+3. InvokeInterface : new interface  List<String> list = new ArrayList<>();
+4. InovkeSpecial : 可以直接定位，不需要多态的方法 private 方法 ， 构造方法
+5. InvokeDynamic : JVM最难的指令 lambda表达式或者反射或者其他动态语言scala kotlin，或者CGLib ASM，动态产生的class，会用到的指令
+
+```java
+public static void main(String[] args) {
+
+
+        I i = C::n;
+        I i2 = C::n;
+        I i3 = C::n;
+        I i4 = () -> {
+            C.n();
+        };
+        System.out.println(i.getClass());
+        System.out.println(i2.getClass());
+        System.out.println(i3.getClass());
+
+        //for(;;) {I j = C::n;} //MethodArea <1.8 Perm Space (FGC不回收)
+    }
+
+    @FunctionalInterface
+    public interface I {
+        void m();
+    }
+
+    public static class C {
+        static void n() {
+            System.out.println("hello");
+        }
+    }
+```
+
+
+
 ## 3、native method stacks 本地方法栈
 
 java虚拟机内部的 c 和 c++ 写的方法的时候使用这个栈
