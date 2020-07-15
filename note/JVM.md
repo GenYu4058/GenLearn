@@ -664,7 +664,7 @@ Finalize()是Object类的一个方法、一个对象的finalize()方法只会被
 
 老年代存活率高，回收较少，采用MC或者MS
 
-![image-20200713221232241](JVM.assets/image-20200713221232241.png)
+![image-20200714220800383](JVM.assets/image-20200714220800383.png)
 
 eden（伊甸）：刚刚new出来的对象存放的区域
 
@@ -692,6 +692,14 @@ Old：经过多次回收后，对象存放的区域
 
 经过多次回收，放在old区
 
+**对象何时进入老年代**
+
+1. 超过  XX:MaxTenuringThreshold 指定次数（YGC）
+2. 默认的 Parallel Scavenge 15次  CMS 6次   G1 15次
+3. 动态年龄，从eden区 + s1区复制到s2区的对象超过 s2空间的50%时，直接把年龄最大的放入old区
+4. 分配担保：（不重要）
+     YGC期间 survivor区空间不够了 空间担保直接进入老年代
+
 ## GC概念
 
 ![image-20200713222448149](JVM.assets/image-20200713222448149.png)
@@ -716,7 +724,45 @@ Full GC触发条件：
 
 **线程本地分配：**当多个线程同时向Eden区分配对象时，会发生线程争用的情况，为了提高效率，会在eden区为每一个线程都分配一个线程独有的区域（占用eden区的1%空间），当线程向eden区分配对象时，会首先向自己独有的区域分配。
 
+**栈上分配的对象，不需要垃圾回收的介入，栈弹出后，对象就没了。**
 
+## 总结
 
+![image-20200714220226733](JVM.assets/image-20200714220226733.png)
 
+# 常用的垃圾回收器
+
+![image-20200714222317744](JVM.assets/image-20200714222317744.png)
+
+1. JDK诞生 Serial追随 提高效率，诞生了PS，为了配合CMS，诞生了PN，CMS是1.4版本后期引入，CMS是里程碑式的GC，它开启了并发回收的过程，但是CMS毛病较多，因此目前任何一个JDK版本默认是CMS
+   并发垃圾回收是因为无法忍受STW
+2. Serial 年轻代 串行回收
+3. PS 年轻代 并行回收
+4. ParNew 年轻代 配合CMS的并行回收
+5. SerialOld 
+6. ParallelOld
+7. ConcurrentMarkSweep 老年代 并发的， 垃圾回收和应用程序同时运行，降低STW的时间(200ms)
+   CMS问题比较多，所以现在没有一个版本默认是CMS，只能手工指定
+   CMS既然是MarkSweep，就一定会有碎片化的问题，碎片到达一定程度，CMS的老年代分配对象分配不下的时候，使用SerialOld 进行老年代回收
+   想象一下：
+   PS + PO -> 加内存 换垃圾回收器 -> PN + CMS + SerialOld（几个小时 - 几天的STW）
+   几十个G的内存，单线程回收 -> G1 + FGC 几十个G -> 上T内存的服务器 ZGC
+   算法：三色标记 + Incremental Update
+8. G1(10ms)
+   算法：三色标记 + SATB
+9. ZGC (1ms) PK C++
+   算法：ColoredPointers + LoadBarrier
+10. Shenandoah
+    算法：ColoredPointers + WriteBarrier
+11. Eplison
+12. PS 和 PN区别的延伸阅读：
+    ▪[https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html#GUID-3D0BB91E-9BFF-4EBB-B523-14493A860E73](https://docs.oracle.com/en/java/javase/13/gctuning/ergonomics.html)
+13. 垃圾收集器跟内存大小的关系
+    1. Serial 几十兆
+    2. PS 上百兆 - 几个G
+    3. CMS - 20G
+    4. G1 - 上百G
+    5. ZGC - 4T - 16T（JDK13）
+
+**1.8默认的垃圾回收：PS + ParallelOld**
 
