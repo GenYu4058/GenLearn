@@ -295,6 +295,10 @@ java Memory Model
 
 直接指针（Hospot）
 
+
+
+
+
 # 硬件层的并发优化基础知识
 
 ![image-20200704210932850](JVM.assets/image-20200704210932850.png)
@@ -444,6 +448,10 @@ java虚拟机内部的 c 和 c++ 写的方法的时候使用这个栈
 
 ## 4、Heap
 
+
+
+
+
 ## 5、Method Area 方法区
 
 装的是各种各样的class，常量池
@@ -516,7 +524,7 @@ public static void main(String[] args) {
     }
 ```
 
-# GC与调优
+# GC
 
 熟悉GC常用算法，熟悉常见垃圾收集器，具有实际JVM调优实战经验。
 
@@ -659,6 +667,46 @@ Finalize()是Object类的一个方法、一个对象的finalize()方法只会被
 老年代中，因为对象存活率较高，没有额外的空间进行分配担保，所以适合标记-清除，标记-整理算法进行回收。
 
 ## 堆内分区
+
+
+
+```
+1. 部分垃圾回收器使用的模型
+
+   > 除Epsilon ZGC Shenandoah之外的GC都是使用逻辑分代模型
+   >
+   > G1是逻辑分代，物理不分代
+   >
+   > 除此之外不仅逻辑分代，而且物理分代
+
+2. 新生代 + 老年代 + 永久代（1.7）Perm Generation/ 元数据区(1.8) Metaspace
+   1. 永久代 元数据 - Class
+   2. 永久代必须指定大小限制 ，元数据可以设置，也可以不设置，无上限（受限于物理内存）
+   3. 字符串常量 1.7 - 永久代，1.8 - 堆
+   4. MethodArea逻辑概念 - 永久代、元数据
+   
+3. 新生代 = Eden + 2个suvivor区 
+   1. YGC回收之后，大多数的对象会被回收，活着的进入s0
+   2. 再次YGC，活着的对象eden + s0 -> s1
+   3. 再次YGC，eden + s1 -> s0
+   4. 年龄足够 -> 老年代 （15 CMS 6）
+   5. s区装不下 -> 老年代
+   
+4. 老年代
+   1. 顽固分子
+   2. 老年代满了FGC Full GC
+   
+5. GC Tuning (Generation)
+   1. 尽量减少FGC
+   2. MinorGC = YGC
+   3. MajorGC = FGC
+7. 动态年龄：（不重要）
+   https://www.jianshu.com/p/989d3b06a49d
+
+8. 分配担保：（不重要）
+   YGC期间 survivor区空间不够了 空间担保直接进入老年代
+   参考：https://cloud.tencent.com/developer/article/1082730
+```
 
 新生代大量死去，少量存活，采用复制算法
 
@@ -808,11 +856,91 @@ CMS收集器的缺点：
 
 ### 三次标记
 
+# JVM调优
+
+## 常见垃圾回收器组合参数设定：(1.8)
+
+* -XX:+UseSerialGC = Serial New (DefNew) + Serial Old
+  * 小型程序。默认情况下不会是这种选项，HotSpot会根据计算及配置和JDK版本自动选择收集器
+* -XX:+UseParNewGC = ParNew + SerialOld
+  * 这个组合已经很少用（在某些版本中已经废弃）
+  * https://stackoverflow.com/questions/34962257/why-remove-support-for-parnewserialold-anddefnewcms-in-the-future
+* -XX:+UseConc<font color=red>(urrent)</font>MarkSweepGC = ParNew + CMS + Serial Old
+* -XX:+UseParallelGC = Parallel Scavenge + Parallel Old (1.8默认) 【PS + SerialOld】
+* -XX:+UseParallelOldGC = Parallel Scavenge + Parallel Old
+* -XX:+UseG1GC = G1
+* Linux中没找到默认GC的查看方法，而windows中会打印UseParallelGC 
+  * java +XX:+PrintCommandLineFlags -version
+  * 通过GC的日志来分辨
+
+* Linux下1.8版本默认的垃圾回收器到底是什么？
+
+  * 1.8.0_181 默认（看不出来）Copy MarkCompact
+  * 1.8.0_222 默认 PS + PO
+
+## JVM调优第一步，了解JVM常用命令行参数
+
+* JVM的命令行参数参考：https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html
+
+* HotSpot参数分类
+
+  > 标准： - 开头，所有的HotSpot都支持
+  >
+  > 非标准：-X 开头，特定版本HotSpot支持特定命令
+  >
+  > 不稳定：-XX 开头，下个版本可能取消
+
+  java -version
+
+  java -X
 
 
 
+ 试验用程序：
 
+  ```java
+  import java.util.List;
+  import java.util.LinkedList;
+  
+  public class HelloGC {
+    public static void main(String[] args) {
+      System.out.println("HelloGC!");
+      List list = new LinkedList();
+      for(;;) {
+        byte[] b = new byte[1024*1024];
+        list.add(b);
+      }
+    }
+  }
+  ```
 
+  
 
+  1. 区分概念：内存泄漏memory leak，内存溢出out of memory
+  2. java -XX:+PrintCommandLineFlags HelloGC
+  3. java -Xmn10M -Xms40M -Xmx60M -XX:+PrintCommandLineFlags -XX:+PrintGC  HelloGC
+     PrintGCDetails PrintGCTimeStamps PrintGCCauses
+  4. java -XX:+UseConcMarkSweepGC -XX:+PrintCommandLineFlags HelloGC
+  5. java -XX:+PrintFlagsInitial 默认参数值
+  6. java -XX:+PrintFlagsFinal 最终参数值
+  7. java -XX:+PrintFlagsFinal | grep xxx 找到对应的参数
+  8. java -XX:+PrintFlagsFinal -version |grep GC
 
+### PS GC日志详解
 
+每种垃圾回收器的日志格式是不同的！
+
+PS日志格式
+
+![image-20200722222430149](JVM.assets/image-20200722222430149.png)
+
+heap dump部分：
+
+```java
+eden space 5632K, 94% used [0x00000000ff980000,0x00000000ffeb3e28,0x00000000fff00000)
+                            后面的内存地址指的是，起始地址，使用空间结束地址，整体空间结束地址
+```
+
+![image-20200722222441831](JVM.assets/image-20200722222441831.png)
+
+total = eden + 1个survivor
