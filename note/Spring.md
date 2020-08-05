@@ -247,3 +247,11 @@ BeanPostProcessor的调用时机也能在这里体现，包围住invokeInitMetho
 
 2、DisposableBean 类似于InitializingBean，对应生命周期的销毁阶段，以ConfigurableApplicationContext#close()方法作为入口，实现是通过循环取所有实现了DisposableBean接口的Bean然后调用其destroy()方法。感兴趣的可以自行跟一下源码。
 
+# Spring动态代理//TODO
+
+
+
+
+
+# Spring中用到了哪些设计模式
+
