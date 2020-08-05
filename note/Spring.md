@@ -249,7 +249,9 @@ BeanPostProcessor的调用时机也能在这里体现，包围住invokeInitMetho
 
 
 
+# Bean作用域
 
+https://blog.csdn.net/qq_35956041/article/details/81588160
 
 
 
