@@ -247,11 +247,111 @@ BeanPostProcessor的调用时机也能在这里体现，包围住invokeInitMetho
 
 2、DisposableBean 类似于InitializingBean，对应生命周期的销毁阶段，以ConfigurableApplicationContext#close()方法作为入口，实现是通过循环取所有实现了DisposableBean接口的Bean然后调用其destroy()方法。感兴趣的可以自行跟一下源码。
 
+# Bean作用域
+
+![img](Spring.assets/20160417164310654)
+
+五种作用域中，request、session和global session三种作用域仅在基于web的应用中使用（不必关心所采用的是什么web应用框架），只能用在基于web的Spring ApplicationContext环境。
+
+1、当一个bean的作用域为Singleton，那么Spring Ioc容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。
+
+**Singleton是单例类型，就是在创建容器时就同时自动创建了一个Bean对象，不管你是否使用，他都存在了，每次获取到的对象都是同一对象。**
+
+注意，Singleton作用域是Spring中的缺省作用域。
+
+2、当一个bean的作用域为Prototype，表示一个bean定义对应多个对象实例。Prototype作用域的bean会导致在每次对该bean请求（将其注入到另一个bean中，或者以程序的方式调用容器的getBean()方法）时都会创建一个新的bean实例。
+
+**Prototype是原型类型，它在我们创建容器的时候并没有实例化，而是当我们获取bean的时候才会去创建一个对象，而且我们每次获取到的对象都不是同一个对象。**
+
+根据经验，对有状态的bean应该使用prototype作用域，而对无状态的bean则应该使用singleton作用域。
+
+3、当一个bean的作用域为Request，表示在一次HTTP请求中，一个bean定义对应一个实例；
+
+**即每个HTTP请求都会有各自的bean实例，它们依据某个bean定义创建而成。**
+
+该作用域仅在基于web的Spring ApplicationContext情形下有效。
+
+4、**当一个bean的作用域为Session，表示在一个HTTP Session中，一个bean定义对应一个实例。**
+
+该作用域仅在基于web的Spring ApplicationContext情形下有效。
+
+5、**当一个bean的作用域为Global Session，表示在一个全局的HTTP Session中，一个bean定义对应一个实例。**
+
+典型情况下，仅在使用portlet context的时候有效。该作用域仅在基于web的Spring ApplicationContext情形下有效。
+
+# Bean的生命周期
+
+![img](Spring.assets/20160417164808359)
+
+
+
+Bean实例生命周期的执行过程如下：
+
+- Spring对bean进行实例化，默认bean是单例；
+- Spring对bean进行依赖注入；
+- 如果bean实现了BeanNameAware接口，spring将bean的id传给setBeanName()方法；
+- 如果bean实现了BeanFactoryAware接口，spring将调用setBeanFactory方法，将BeanFactory实例传进来；
+- 如果bean实现了ApplicationContextAware接口，它的setApplicationContext()方法将被调用，将应用上下文的引用传入到bean中；
+- 如果bean实现了BeanPostProcessor接口，它的postProcessBeforeInitialization方法将被调用；
+- 如果bean实现了InitializingBean接口，spring将调用它的afterPropertiesSet接口方法，类似的如果bean使用了init-method属性声明了初始化方法，该方法也会被调用；
+- 如果bean实现了BeanPostProcessor接口，它的postProcessAfterInitialization接口方法将被调用；
+- 此时bean已经准备就绪，可以被应用程序使用了，他们将一直驻留在应用上下文中，直到该应用上下文被销毁；
+- 若bean实现了DisposableBean接口，spring将调用它的distroy()接口方法。同样的，如果bean使用了destroy-method属性声明了销毁方法，则该方法被调用；
+
+
+
+# Bean注入的几种类型
+
+1. 构造方法注入
+2. setter注入
+3. 基于注解注入
+
 # Spring动态代理//TODO
 
 
 
 
 
-# Spring中用到了哪些设计模式
+# Spring中的设计模式
+
+- 单例模式
+- 工厂方法模式
+- 代理模式
+- 模版模式
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
