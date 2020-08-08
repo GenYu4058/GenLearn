@@ -8,7 +8,7 @@ package com.example.java.book.test;
  * @time 下午 1:48
  * Description No Descriptioin
  */
-public class Test {
+public class test {
 
     /**
      * Description :
