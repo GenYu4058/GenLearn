@@ -367,5 +367,149 @@ Lambda表达式遍历
 bookList.forEach(book -> System.out.println("book = " + book.getBookName()));
 ```
 
+# 集合排序
 
+Comparable 和Comparator详解及 区别
+
+https://blog.csdn.net/tolcf/article/details/52229068?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.channel_param
+
+```java
+package test;
+ 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+ 
+public class test {
+	public static void main(String[] args) {
+		List<UserInfo> list = new ArrayList<UserInfo>();
+		list.add(new UserInfo(1,21,"name1"));
+		list.add(new UserInfo(2,27,"name1"));
+		list.add(new UserInfo(3,15,"name1"));
+		list.add(new UserInfo(5,24,"name1"));
+		list.add(new UserInfo(4,24,"name1"));
+		//对该类排序
+		Collections.sort(list);
+		for(int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+	}
+}
+ 
+class UserInfo implements Comparable<UserInfo>{
+	private int userid;
+	private int age;
+	private String name;
+	public UserInfo(int userid, int age, String name) {
+		this.userid = userid;
+		this.age = age;
+		this.name = name;
+	}
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Override
+	public String toString(){
+		return this.userid+","+this.age+","+this.name;
+	}
+	@Override
+	public int compareTo(UserInfo o) {
+		//如果年龄相同，则比较userid，也可以直接  return this.age-o.age;
+		if(this.age-o.age==0){
+			return this.userid-o.userid;
+		}else{
+			return this.age-o.age;
+		}
+	}
+ 
+}
+
+```
+
+```java
+package test;
+ 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+ 
+public class test1 {
+	public static void main(String[] args) {
+		List<UserInfo> list = new ArrayList<UserInfo>();
+		list.add(new UserInfo(1,21,"name1"));
+		list.add(new UserInfo(2,27,"name2"));
+		list.add(new UserInfo(3,15,"name3"));
+		list.add(new UserInfo(5,24,"name4"));
+		list.add(new UserInfo(4,24,"name5"));
+		//new一个比较器
+		MyComparator comparator = new MyComparator();
+		//对list排序
+		Collections.sort(list,comparator);
+		for(int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+	}
+}
+class MyComparator implements Comparator<UserInfo>{
+	@Override
+	public int compare(UserInfo o1,UserInfo o2) {
+		
+		if(o1.getAge()-o2.getAge()==0){
+			return o1.getUserid()-o2.getUserid();
+		}else{
+			return o1.getAge()-o2.getAge();
+		}
+	}
+}
+class UserInfo{
+	private int userid;
+	private int age;
+	private String name;
+	public UserInfo(int userid, int age, String name) {
+		this.userid = userid;
+		this.age = age;
+		this.name = name;
+	}
+	public int getUserid() {
+		return userid;
+	}
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Override
+	public String toString(){
+		return this.userid+","+this.age+","+this.name;
+	}
+}
+ 
+
+```
 
