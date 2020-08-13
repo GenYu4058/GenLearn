@@ -20,6 +20,24 @@ performance schema来更加容易的监控
 
 show processlist 查看Mysl的服务一共有多少个连接
 
+# schema 与数据类型优化
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
