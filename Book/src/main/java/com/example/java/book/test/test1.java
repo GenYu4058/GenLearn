@@ -1,24 +1,18 @@
 package com.example.java.book.test;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.example.java.book.model.Book;
+
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class test1 {
-    public static int findDuplicate(int[] nums) {
-        Set<Integer> set = new HashSet<Integer>();
-        for (int i = 0; i < nums.length; i++){
-            if(set.contains(nums[i])){
-                return nums[i];
-            } else {
-                set.add(nums[i]);
-            }
-        }
-        return 0;
-    }
-
     public static void main(String[] args) {
-        int[] nums = {3,1,3,4,2};
-        System.out.println(findDuplicate(nums));
+        List<Book> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++){
+            Book book = new Book(i, "1","1","1", "1");
+            list.add(book);
+        }
+
 
     }
 

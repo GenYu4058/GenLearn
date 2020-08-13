@@ -1,13 +1,15 @@
 package com.example.java.book.model;
 
 
+import java.util.Comparator;
+
 /**
  * Book实体类
  *
  * @author GenYu
  * @date 2019/01/29
  */
-public class Book {
+public class Book implements Comparable<Book>{
     private int bookId;
     private String bookNumber;
     private String bookName;
@@ -62,7 +64,13 @@ public class Book {
         this.bookType = bookType;
     }
 
-    public Book(){
+    public Book(){ }
 
+
+    @Override
+    public int compareTo(Book o) {
+        Integer id1 = this.getBookId();
+        Integer id2 = o.getBookId();
+        return id1.compareTo(id2);
     }
 }
